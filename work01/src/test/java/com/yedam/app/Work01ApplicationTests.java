@@ -30,7 +30,8 @@ class Work01ApplicationTests {
 	    @Test
 	    public void selectOne() {
 	        DeptVO dept = DeptVO.builder() 
-	                .build();
+			        		.departmentId(10)
+			                .build();
 
 	        DeptVO findVO = deptMapper.selectInfo(dept);
 	        System.out.println(findVO);

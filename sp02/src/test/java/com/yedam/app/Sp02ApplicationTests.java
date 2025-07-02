@@ -18,7 +18,7 @@ class Sp02ApplicationTests {
     @Autowired // 필드주입 : 테스트용
     private EmpMapper empMapper;
     
-    @Test // 해당 메서드를 테스트하겠다고 선언!
+//    @Test // 해당 메서드를 테스트하겠다고 선언!
     public void selectAll() {
         List<EmpVO> list = empMapper.selectAll();
         for(EmpVO emp : list) {
@@ -27,7 +27,7 @@ class Sp02ApplicationTests {
         assertTrue(!list.isEmpty());
     }
     
-    @Test
+ //   @Test
     public void selectOne() {
         EmpVO emp = EmpVO.builder() //빌더가 하는 역할 1) instance create 2) field init 
                             .employeeId(100)
@@ -49,7 +49,7 @@ class Sp02ApplicationTests {
 //    	int result = empMapper.insertInfo(emp);
 //    	    assertEquals(1, result);
 //    }
-    @Test
+ //   @Test
     public void insertSelectkey() {
     	EmpVO emp = EmpVO.builder()
     						.lastName("Hong")
@@ -59,6 +59,22 @@ class Sp02ApplicationTests {
     						.build();
     	int result = empMapper.insertInfo(emp);
     	System.out.println("사원번호 : " + emp.getEmployeeId());
+    	
+    	assertEquals(1, result);
+    }
+    
+    @Test
+    public void updateInfo() {
+    	// 1) 단건조회
+    	EmpVO emp = EmpVO.builder()
+    					  .employeeId(4322)
+    					  .build();
+    	EmpVO findVO = empMapper.selectInfo(emp);
+    	// 2) 값 변경
+    	findVO.setSalary(2550);
+    	// 3) 테이블에 업데이트
+    	int result = empMapper.updateInfo(4322, findVO);
+    	
     	assertEquals(1, result);
     }
 }
