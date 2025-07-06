@@ -9,45 +9,43 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.yedam.app.dept.mapper.DeptMapper;
-import com.yedam.app.dept.service.DeptVO;
+import com.yedam.app.department.mapper.DeptMapper;
+import com.yedam.app.department.service.DeptVO;
 
 @SpringBootTest
 class Work01ApplicationTests {
 
-	 @Autowired // 필드주입 : 테스트용
-	    private DeptMapper deptMapper;
+	@Autowired
+	private DeptMapper deptMapper;
 
-	    @Test // 해당 메서드를 테스트하겠다고 선언!
-	    public void selectAll() {
-	        List<DeptVO> list = deptMapper.selectAll();
-	        for(DeptVO dept : list) {
-	            System.out.println(dept.getDepartmentName());
-	        }
-	        assertTrue(!list.isEmpty());
-	    }
+	@Test
+	public void selectAll() {
+		List<DeptVO> list = deptMapper.selectAll();
+		for (DeptVO dept : list) {
+			System.out.println(dept.getDepartmentName());
+		}
 
-	    @Test
-	    public void selectOne() {
-	        DeptVO dept = DeptVO.builder() 
-			        		.departmentId(10)
-			                .build();
+		assertTrue(!list.isEmpty());
+	}
 
-	        DeptVO findVO = deptMapper.selectInfo(dept);
-	        System.out.println(findVO);
-	        assertEquals("Administration", findVO.getDepartmentName()); 
-	    }
+	@Test
+	public void selectOne() {
+		DeptVO dept = DeptVO.builder().departmentId(10).build(); // departmentId 10인 부서 조회
+		DeptVO findVO = deptMapper.selectInfo(dept);
+		System.out.println(findVO);
 
-	    @Test
-	    public void insertSelectkey() {
-	        DeptVO dept = DeptVO.builder()
-	                .departmentName("IT Development")
-	                .managerId(100)
-	                .locationId(1700)
-	                .build();
-	        int result = deptMapper.insertInfo(dept);
-	        System.out.println("부서번호 : " + dept.getDepartmentId());
-	        assertEquals(1, result);
-	    }
+		 assertEquals("Administration", findVO.getDepartmentName()); 
+	}
+
+	@Test
+	public void insertSelectKey() {
+		DeptVO dept = DeptVO.builder().departmentName("Administration")
+					                  .managerId(200)
+					                  .locationId(1700)
+					                  .build();
+		int result = deptMapper.insertInfo(dept);
+		System.out.println("생성된 부서 번호: " + dept.getDepartmentId());
+		assertEquals(1, result); // insertInfo 메서드가 1을 반환하면 성공
+	}
 
 }
