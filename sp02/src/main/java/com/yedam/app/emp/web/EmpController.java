@@ -41,7 +41,7 @@ public class EmpController {
 //                                 (priefix)          (return)    (suffix)
 	}
 	
-	// 단건조회 : GET => QueryString
+	// 단건조회 : GET => QueryString | empInfo?employeeId=100
 	@GetMapping("empInfo")
 	public String empInfo(EmpVO empVO, Model model) { // 1. empVO 쓰는이유 아래에서 요구함                   a 이 값(매개변수)이 들어오면
 		EmpVO findVO = empService.findInfoById(empVO);// 2. findInfoById 가 요구하는것 : 객체이기때문에       b 이 기능들을 수행하고
@@ -50,10 +50,10 @@ public class EmpController {
 	}
 	
 	// 등록 - 페이지 : GET
-	@GetMapping("empinsert")
+	@GetMapping("empInsert")
 	public String empInsertForm() {
-		
 		return "emp/insert";
+		//classpath:/templates/emp/insert.html
 	}
 	
 	
@@ -74,7 +74,7 @@ public class EmpController {
 	}
 	
 	
-	// 수정 - 페이지 : GET <=> 단건조회     코드 거의같음
+	// 수정 - 페이지 : GET <=> 단건조회 empUpdate?employeeId=100
 	@GetMapping("empUpdate")
 	public String empUpdateForm(EmpVO empVO, Model model) {
 		EmpVO findVO = empService.findInfoById(empVO);
@@ -84,12 +84,12 @@ public class EmpController {
 	
 	// 수정 - 처리 : POST + AJAX + JSON 기반으로 해서 처리
 	@PostMapping("empUpdate")
-	@ResponseBody // AJAX 를 이용해서 동작할수 있는 이노테이션  
+	@ResponseBody // AJAX 를 이용해서 동작할수 있는 이노테이션 , Model 사용하지 않음
 	public Map<String, Object> empUpdateProcess(@RequestBody EmpVO empVO) {// @RequestBody => 사용자에게 받는건 JSON 포멧을 쓰겠다 선언
 		return empService.modifyInfo(empVO);
 	}
 	
-	// 삭제 - 처리 : GET => QueryString 방식으로 진행 :: 프라이머리 키만 넘겨주면 되니까 GET 인데 중요한 정보가 포함되어 있을경우 POST
+	// 삭제 - 처리 : GET => QueryString 방식으로 진행 :: 프라이머리 키만 넘겨주면 되니까 GET 인데 중요한 정보가 포함되어 있을경우 POST : empDelete key=value ,/empDelete?employeeId=?
 	@GetMapping("empDelete")
 	public String empDelete(Integer employeeId) {
 		empService.removeInfo(employeeId);

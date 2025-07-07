@@ -32,7 +32,7 @@ public class EmpServiceImpl implements EmpService {
     public EmpVO findInfoById(EmpVO empVO) {
         return empMapper.selectInfo(empVO);
     }
-
+ 
     @Override
     public int createInfo(EmpVO empVO) {
         int result = empMapper.insertInfo(empVO);

@@ -18,10 +18,10 @@ public class EmpVO {
 	private Integer employeeId;
 	private String lastName;
 	private String email;
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date hireDate;
 	private String jobId;
-	private double salary;
+	private Double salary;
 	
 }
  
