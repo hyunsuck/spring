@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.app.book.mapper.BookMapper">
+  <select id="selectAll" resultType="BookVO">
+SELECT book_no
+      ,book_name
+      ,book_covering
+      ,book_date
+      ,book_price
+      ,book_publisher
+      ,book_info
+FROM book_tbl_06
+ORDER BY book_no
+  </select>
+  <select id="getMaxBookNo" resultType="int">
+SELECT NVL(MAX(book_no), 0)
+FROM book_tbl_06
+  </select>
+  <insert id="insertInfo" parameterType="BookVO">
+INSERT INTO book_tbl_06
+(
+   book_no
+  ,book_name
+  ,book_covering
+  ,book_date
+  ,book_price
+  ,book_publisher
+  ,book_info
+)
+VALUES
+  (
+     #{bookNo}
+    ,#{bookName}
+    ,#{bookCovering}
+    ,#{bookDate}
+    ,#{bookPrice}
+    ,#{bookPublisher}
+    ,#{bookInfo}
+  )
+  </insert>
+  <select id="selectRendtAll" resultType="BookRentVO">
+ SELECT book_no
+      ,(SELECT book_name
+        FROM book_tbl_06
+        WHERE rent_tbl_06.book_no = book_tbl_06.book_no) book_name
+      ,SUM(rent_price) sum_rent_price
+      ,COUNT(book_no) count_book_no
+FROM rent_tbl_06 
+GROUP BY book_no
+  </select>
+</mapper>

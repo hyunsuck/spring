@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layouts/default_layout}"
+      layout:fragment="Content">
+<body>
+  <div class="container">
+    <form name="bookInsert" th:action="@{/bookInsert}" method="post">
+      <h3>도서 등록</h3>
+      <table class="table">
+        <tr>
+          <th>도서번호</th>
+          <td><input type="text" class="form-control" name="bookNo" id="bookNo"></td>
+        </tr>
+        <tr>
+          <th>도서명</th>
+          <td><input type="text" class="form-control" name="bookName" id="bookName"></td>
+        </tr>
+        <tr>
+          <th>도서표지</th>
+          <td><input type="text" class="form-control" name="bookCovering" id="bookCovering"></td>
+        </tr>
+        <tr>
+          <th>출판일자</th>
+          <td><input type="text" class="form-control" name="regdate" id="bookDate" placeholder="yyyy/MM/dd"></td>
+        </tr>
+        <tr>
+          <th>금액</th>
+          <td><input type="text" class="form-control" name="bookPrice" id="bookPrice"></td>
+        </tr>
+        <tr>
+          <th>출판사</th>
+          <td><input type="text"  class="form-control" name="bookPublisher" id="bookPublisher"></td>
+        </tr>
+        <tr>
+          <th>도서소개</th>
+          <td><textarea class="form-control" name="bookInfo" id="bookInfo"></textarea></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="text-end">
+            <button type="submit" class="btn btn-primary">등록</button>
+            <button type="button" class="btn btn-secondary" th:onclick="|location.href='@{/bookList}'|">조회</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+
+  <script>
+  $(bookInsert).on('submit', function(event) {
+    event.preventDefault();
+    let bookName = $(bookInsert).find('[name="bookName"]');
+    if (bookName.val() == '') {
+      bookName.focus();
+      alert('도서명이 입력되지 않았습니다.');
+      return;
+    }
+
+    alert('도서등록이 완료되었습니다.');
+    bookInsert.submit();
+  });
+  </script>
+</body>
+</html>
