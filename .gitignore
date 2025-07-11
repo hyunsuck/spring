@@ -121,4 +121,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+
+apache-tomcat-*
+
 # End of https://www.toptal.com/developers/gitignore/api/java,eclipse,windows
